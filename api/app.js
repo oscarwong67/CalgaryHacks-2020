@@ -29,8 +29,8 @@ app.post('/api/sendmessage', (req, res) => {
     sentimentAnalysis(req.body.queryResult.queryText).then((sentimentScore) => {
 
         db.collection('resident_messages').add({
-            sender: req.body.queryResult.queryText,
-            message: req.body.session,
+            sender: req.body.session,
+            message: req.body.queryResult.queryText,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
             sentimentScore
         }).then((docRef) => {
