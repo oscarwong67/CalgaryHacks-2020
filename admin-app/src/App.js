@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import sentimentAnalysis from './sentimentanalysis';
 import '@zeit-ui/style'
 import './App.css';
 import db from "./firebase";
 
 function handleNurseResponse(response, doc) {
-  db.collection('resident_messages').doc(doc).delete();
+  // db.collection('resident_messages').doc(doc).delete();
+  sentimentAnalysis().then((data) => console.log(data)).catch((err) => console.log(err));
 }
 
 function renderResidentMessages(residentMessages) {
