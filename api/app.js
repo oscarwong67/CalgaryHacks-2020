@@ -25,11 +25,11 @@ var server = app.listen(8000, function () {
 });
 
 app.post('/api/sendmessage', (req, res) => {
-    sentimentAnalysis(req.body.message).then((sentimentScore) => {
+    sentimentAnalysis(req.body.queryResult.queryText).then((sentimentScore) => {
 
         db.collection('resident_messages').add({
-            sender: req.body.sender,
-            message: req.body.message,
+            sender: req.body.queryResult.queryText,
+            message: req.body.session,
             // timestamp: FieldValue.serverTimestamp(),
             sentimentScore
         }).then((docRef) => {
