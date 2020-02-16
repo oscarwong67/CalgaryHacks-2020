@@ -27,9 +27,13 @@ var server = app.listen(8000, function () {
 
 app.post('/api/sendmessage', (req, res) => {
     sentimentAnalysis(req.body.queryResult.queryText).then((sentimentScore) => {
-
+        let intentRequest = req.body.originalDetectIntentRequeset;
+        let sender = "Home Mini A";
+        if (intentRequest["source"]) {
+            sender = intentRequest.payload.data.sender.id;
+        }
         db.collection('resident_messages').add({
-            sender: req.body.session,
+            sender,
             message: req.body.queryResult.queryText,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
             sentimentScore
