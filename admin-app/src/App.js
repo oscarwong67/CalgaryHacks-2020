@@ -8,10 +8,15 @@ function handleNurseResponse(response, doc) {
 }
 
 function renderResidentMessages(residentMessages) {
-  residentMessages.sort(function(a, b) { return a.sentimentScore - b.sentimentScore });
-  const residentMessageElements = residentMessages.map((message) => {
-    let newSentiment = Math.abs(message.timestamp.toDate() - (new Date()))/500000;
-    message.sentimentScore -= newSentiment;
+  const sortedResidentMessages = residentMessages.map((message) => {
+    const ageFactor = Math.abs(message.timestamp.toDate() - (new Date()))/500000;
+    const adjustedSentimentScore = message.sentimentScore - ageFactor;
+    const adjustedMessage = {...message};
+    adjustedMessage.sentimentScore = adjustedSentimentScore;
+    return adjustedMessage;
+  })
+  sortedResidentMessages.sort(function(a, b) { return a.sentimentScore - b.sentimentScore });
+  const residentMessageElements = sortedResidentMessages.map((message) => {
     return (
       <div className="zi-card" key={message.id}>
         <h3>{message.message}</h3>
