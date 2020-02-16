@@ -8,6 +8,7 @@ function handleNurseResponse(response, doc) {
 }
 
 function renderResidentMessages(residentMessages) {
+  residentMessages.sort(function(a, b) { return a.sentimentScore - b.sentimentScore });
   const residentMessageElements = residentMessages.map((message) => {
     let newSentiment = Math.abs(message.timestamp.toDate() - (new Date()))/1000000;
     message.sentimentScore -= newSentiment;
@@ -47,5 +48,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
