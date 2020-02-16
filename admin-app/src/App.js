@@ -23,8 +23,7 @@ function renderResidentMessages(residentMessages) {
         <h4>Sent by: {message.sender}</h4>
         <h4>Received: {message.timestamp ? message.timestamp.toDate().toString() : null}</h4>
         <span className="button-row">
-          <button className="zi-btn success response-btn" onClick={(event) => handleNurseResponse(event.target.value, message.id)}>Someone is on the way.</button>
-          <button className="zi-btn warning response-btn" onClick={(event) => handleNurseResponse(event.target.value, message.id)}>Please give me a moment, someone will be there soon.</button>
+          <button className="zi-btn success response-btn" onClick={(event) => handleNurseResponse(event.target.value, message.id)}>Resolve</button>
         </span>
       </div>
     );
