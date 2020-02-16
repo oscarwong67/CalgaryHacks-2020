@@ -16,6 +16,7 @@ const config = {
   };
 firebase.initializeApp(config)
 const db = firebase.firestore();
+const Timestamp = db.Timestamp;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +31,7 @@ app.post('/api/sendmessage', (req, res) => {
         db.collection('resident_messages').add({
             sender: req.body.queryResult.queryText,
             message: req.body.session,
-            // timestamp: FieldValue.serverTimestamp(),
+            timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
             sentimentScore
         }).then((docRef) => {
             if (docRef.id) {
