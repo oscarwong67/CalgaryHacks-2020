@@ -9,6 +9,8 @@ function handleNurseResponse(response, doc) {
 
 function renderResidentMessages(residentMessages) {
   const residentMessageElements = residentMessages.map((message) => {
+    let newSentiment = Math.abs(message.timestamp - (new Date()));
+    message.sentimentScore -= newSentiment;
     return (
       <div className="zi-card" key={message.id}>
         <h3>{message.message}</h3>
